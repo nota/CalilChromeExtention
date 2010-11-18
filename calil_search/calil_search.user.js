@@ -28,13 +28,16 @@ function init(){
 
 	if(isYahoo){
 		list = $('#WS2m');
+		menu_list = $('#Si1 dd span')[0]
 		links = $('#WS2m li').find('h3 a');
 	}
 	if(isGoogle){
 		list = $('#ires');
+		menu_list = $('#ms ul li')[0]
 		links = $('#ires li a.l');
 	}
 
+	setLink();
 
 	if(list == null){
 		return;
@@ -50,11 +53,11 @@ function init(){
 	log(isbns)
 	
 	if(isbns.length == 0){
-		setLink();
 		return;
 	}
 
 	var raw_isbn = isbns[0];
+	log(raw_isbn)
 
 	var url = 'http://api.calil.jp/isbn10?q='+raw_isbn;
 	GM_xmlhttpRequest({
@@ -62,11 +65,10 @@ function init(){
 		url:url,
 		onload:function(data){
 			var isbn = data.responseText;
-			if(data.responseText == 'error'){
+			if(data.responseText == 'error' || data.responseText == ''){
 				isbn = raw_isbn;
 			}
 			if(!validateISBN(isbn)){
-				setLink();
 				return;
 			}
 
@@ -75,6 +77,7 @@ function init(){
 				method:'GET', 
 				url:url,
 				onload:function(data){
+					log(data.responseText)
 					data = eval(data.responseText);
 				}
 			});
@@ -112,18 +115,26 @@ function setLink(){
 	if(isYahoo){
 		var keyword = link.params['p'];
 		var style = 'display:block;margin-left:23px;margin-bottom:15px;';
+		$(menu_list).after([
+			'&nbsp;<span>',
+			'<a href="http://calil.jp/search?q='+keyword+'" target="_blank">',
+			'☆このキーワードで本を探す',
+			'</a>',
+			'</span>'
+		].join(''));
 	}
 	if(isGoogle){
 		var keyword = link.params['q'];
 		var style = '';
+		$(menu_list).after([
+			'<li class="mitem" style="margin-top: 4px;">',
+			'<a href="http://calil.jp/search?q='+keyword+'" target="_blank">',
+			'<img src="http://calil.jp/favicon.ico" style="margin-left:2px;margin-right: 6px;">',
+			'カーリル',
+			'</a>',
+			'</li>'
+		].join(''));
 	}
-	list.before([
-		'<div style="'+style+'">',
-		'<a href="http://calil.jp/search?q='+keyword+'" target="_blank">',
-		'☆このキーワードで本を探す',
-		'</a>',
-		'</div>'
-	].join(''));
 }
 
 function setCalil(isbn, list){
@@ -139,10 +150,6 @@ function setCalil(isbn, list){
 	if(isGoogle){
 		var div = '<div class="calil_waku" style="font-size: 80%;margin-bottom:15px;padding: 10px 10px 10px 20px;border:1px solid #00CAFF;background-color:white;-webkit-border-radius:10px;width:96%;min-height:77px;overflow:hidden;" id="calil">';
 		var keyword = link.params['q'];
-	}
-
-	if(keyword.match(/\+%E6%9C%AC\+site:amazon.co.jp/)){
-		keyword = keyword.split('+%E6%9C%AC+site:amazon.co.jp')[0];
 	}
 
 	list.before([

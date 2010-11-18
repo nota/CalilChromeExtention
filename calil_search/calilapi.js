@@ -451,6 +451,7 @@ CalilCitySelectDlg.prototype = {
 				method:'GET', 
 				url:url,
 				onload:function(data){
+					log(data)
 					var json = data.responseText.match(/loadcity\((.*?)\);$/);
 					eval('var data = ' + json[1])
 					self.loadcity(data);

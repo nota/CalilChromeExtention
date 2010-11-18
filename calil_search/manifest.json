@@ -1,11 +1,10 @@
 {
     "name": "Calil for Search Engine",
-    "version": "0.44",
+    "version": "0.45",
     "description": "Calil for Search Engine",
 	"default_icon": "favicon.png",
     "permissions" : [
-        "http://*/*" ,
-        "https://*/*"
+        "http://*/*"
     ] ,
 	"icons": {
 		"16": "favicon48.png",
@@ -17,8 +16,7 @@
 
     "content_scripts": [{
         "matches": [
-            "http://*/*" ,
-            "https://*/*" 
+            "http://*/*"
         ],
         "js": [ "jquery.min.js", "calilapi.js", "gmWrapper.js" , "calil_search.user.js" ]
     }]
