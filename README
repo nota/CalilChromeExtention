@@ -1,0 +1,19 @@
+カーリル Chrome Extension
+
+
+calil_search
+
+Calil for Search Engine
+https://chrome.google.com/extensions/detail/fdekknegpiaelhfkidgnmifomdloniep
+
+日本最大の図書館検索サイト カーリル（http://calil.jp/）の機能を、Google Japan検索、Yahoo!Japan検索で使える機能拡張です。
+
+図書館API JSライブラリ
+http://calil.jp/doc/api_jsref.html
+
+
+<謝辞>
+GreasemonkeyスクリプトをChromeに移植するために以下のテンプレートを利用させていただきました。
+
+グリモンuserscriptをChromeに移植するときに使う、GM APIのラッパっぽいものとプロジェクトテンプレートを書いた - 心魅 ～ cocoromi ～
+http://d.hatena.ne.jp/umezo/20091121/1258819422
