@@ -1,0 +1,26 @@
+{
+    "name": "Calil for Search Engine",
+    "version": "0.44",
+    "description": "Calil for Search Engine",
+	"default_icon": "favicon.png",
+    "permissions" : [
+        "http://*/*" ,
+        "https://*/*"
+    ] ,
+	"icons": {
+		"16": "favicon48.png",
+		"32": "favicon48.png",
+		"48": "favicon48.png",
+		"128": "favicon48.png"
+	},
+    "background_page": "background.html",
+
+    "content_scripts": [{
+        "matches": [
+            "http://*/*" ,
+            "https://*/*" 
+        ],
+        "js": [ "jquery.min.js", "calilapi.js", "gmWrapper.js" , "calil_search.user.js" ]
+    }]
+}
+
